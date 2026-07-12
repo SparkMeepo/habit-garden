@@ -6,6 +6,7 @@ from pathlib import Path
 
 from habit_garden.cli import main
 from habit_garden.models import Note, ProjectState, Task
+from habit_garden.cli import demo_state
 from habit_garden.storage import load_state, save_state
 
 
@@ -36,6 +37,12 @@ class ProjectSmokeTests(unittest.TestCase):
             loaded = load_state(path)
 
         self.assertEqual(loaded.notes[0].title, "Saved")
+
+    def test_demo_state_has_records(self) -> None:
+        state = demo_state()
+
+        self.assertGreaterEqual(len(state.notes), 1)
+        self.assertGreaterEqual(len(state.tasks), 1)
 
 
 if __name__ == "__main__":
